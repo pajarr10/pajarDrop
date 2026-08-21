@@ -22,12 +22,19 @@ Salin dari `.env.example`:
 
 ## 3. Domain
 
-Attach dua domain ke project Vercel yang sama:
+Cukup satu domain untuk seluruh project — **tidak perlu subdomain terpisah**. Semua route (landing page, uploader, admin, API, dan URL file) berada di domain yang sama, misalnya:
 
-- `domain.com` (root) — landing page, `/upload`, `/uploadong`, `/status`, `/admen`, `/api/*`
-- `c.domain.com` — khusus URL file publik (`/pajar/*`, `/pjr/*`)
+```
+p4drop.biz.id/            -> landing page
+p4drop.biz.id/upload      -> uploader media
+p4drop.biz.id/uploadong   -> uploader file/source
+p4drop.biz.id/status      -> statistik
+p4drop.biz.id/admen       -> admin panel
+p4drop.biz.id/pajar/<id>.<ext>  -> file media
+p4drop.biz.id/pjr/<id>          -> file/source
+```
 
-Domain **tidak pernah di-hardcode** di source code — semua diambil dari header `Host` / `X-Forwarded-Host` saat request (lihat `lib/domain.js`). Jadi kalau kamu ganti domain, cukup ganti DNS/domain attachment di Vercel, tidak perlu ubah kode.
+Domain **tidak pernah di-hardcode** di source code — selalu diambil dari header `Host` / `X-Forwarded-Host` saat request (lihat `lib/domain.js`). Jadi kalau kamu ganti domain di Vercel, tidak perlu ubah kode sama sekali.
 
 ## 4. Struktur Route
 
@@ -39,10 +46,10 @@ Domain **tidak pernah di-hardcode** di source code — semua diambil dari header
 | `GET /status` | Statistik real-time |
 | `GET /admen` | Login admin |
 | `GET /admen/dashboard` | Panel admin (butuh login) |
-| `POST /api/upload` | Upload media -> `c.domain.com/pajar/<id>.<ext>` |
-| `POST /api/uploadong` | Upload file -> `c.domain.com/pjr/<id>` |
+| `POST /api/upload` | Upload media -> `domain.com/pajar/<id>.<ext>` |
+| `POST /api/uploadong` | Upload file -> `domain.com/pjr/<id>` |
 | `GET /api/stats` | Statistik JSON |
-| `GET /pajar/<id>.<ext>` | Redirect ke file media asli (hanya di host `c.`) |
+| `GET /pajar/<id>.<ext>` | Redirect ke file media asli |
 | `GET /pjr/<id>` | Landing page file, `?dl=1` untuk download |
 
 ## 5. Maintenance Mode
