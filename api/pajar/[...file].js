@@ -4,22 +4,9 @@ const {
   registerDownload,
   isExpired,
 } = require("../../lib/store");
-const { isCdnHost } = require("../../lib/domain");
 
 module.exports = async (req, res) => {
   try {
-    if (
-      !isCdnHost(req) &&
-      !/^localhost/.test(req.headers.host || "")
-    ) {
-      res.statusCode = 404;
-      res.setHeader(
-        "Content-Type",
-        "text/plain; charset=utf-8"
-      );
-      return res.end("Not found");
-    }
-
     const segments = Array.isArray(req.query.file)
       ? req.query.file
       : req.query.file
@@ -39,6 +26,10 @@ module.exports = async (req, res) => {
       ""
     );
 
+    if (!id) {
+      return send403(res);
+    }
+
     const record = await getFileRecord(id);
 
     if (!record || record.kind !== "media") {
@@ -49,12 +40,18 @@ module.exports = async (req, res) => {
       return send403(res);
     }
 
+    if (!record.blobUrl) {
+      console.error("[pajar] missing blobUrl:", id);
+      return send403(res);
+    }
+
     res.statusCode = 302;
     res.setHeader("Location", record.blobUrl);
     res.setHeader(
       "Cache-Control",
       "public, max-age=60"
     );
+
     res.end();
 
     registerDownload(id, record.size).catch((err) => {
@@ -63,12 +60,14 @@ module.exports = async (req, res) => {
   } catch (err) {
     console.error("[pajar]", err);
 
-    res.statusCode = 500;
-    res.setHeader(
-      "Content-Type",
-      "text/plain; charset=utf-8"
-    );
-    res.end("Internal error");
+    if (!res.headersSent) {
+      res.statusCode = 500;
+      res.setHeader(
+        "Content-Type",
+        "text/plain; charset=utf-8"
+      );
+      res.end("Internal error");
+    }
   }
 };
 
@@ -108,6 +107,9 @@ h1{
   font-weight:900;
   color:#C81E12;
   text-transform:uppercase
+}
+p{
+  margin-top:12px;
 }
 </style>
 </head>
