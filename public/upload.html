@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Upload Media — P4DROP</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="/" class="brand">
+    <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
+      <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#F8DCC0" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
+    </svg>
+    <span>P4DROP</span>
+  </a>
+  <nav class="nav-links">
+    <a href="/upload">Upload</a>
+    <a href="/uploadong">Upload Lainnya</a>
+    <a href="/status">Analysis</a>
+  </nav>
+</header>
+
+<section class="uploader-hero">
+  <div class="uploader-hero-inner">
+    <span class="eyebrow">/upload — media</span>
+    <h1>Upload Media</h1>
+    <p>Gambar, video, audio. URL permanen, tidak ada masa kadaluarsa.</p>
+  </div>
+</section>
+
+<main class="uploader-wrap">
+  <div class="upload-layout reveal">
+    <div class="dz-col">
+      <div class="rf-upload-box" style="border:none;box-shadow:none;background:transparent;padding:0;">
+        <div class="rf-label"><span class="diamond">&#9670;</span> Area Upload</div>
+      </div>
+      <div class="dropzone" id="dropzone">
+        <div class="icon-chip icon-chip-lg tone-red" style="margin:0 auto 12px;">
+          <svg class="icon" viewBox="0 0 48 48"><path d="M24 8v26M24 34l-11-11M24 34l11-11" stroke-linecap="square" stroke-linejoin="miter"/><rect x="10" y="40" width="28" height="5"/></svg>
+        </div>
+        <h3>Drag &amp; drop file di sini</h3>
+        <p>atau klik untuk memilih file dari perangkatmu</p>
+        <input type="file" id="fileInput" accept="image/*,audio/*,video/*" multiple />
+      </div>
+      <div id="uploadList"></div>
+    </div>
+    <div class="info-col">
+      <h3>Status Layanan</h3>
+      <ul>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>Tanpa masa kadaluarsa — file tersimpan permanen</span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>Direct URL langsung siap dipakai di &lt;img&gt; / &lt;video&gt;</span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>Format: PNG, JPG, GIF, WEBP, SVG, MP3, WAV, MP4, WEBM, MOV, MKV, dll</span>
+        </li>
+        <li>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>Butuh file non-media? Pakai <a href="/uploadong" style="text-decoration:underline;">/uploadong</a></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="format-grid" style="margin-top:40px;">
+    <div class="format-item"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" stroke-linejoin="miter"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-5 4 4 3-3 4 4" stroke-linejoin="miter"/></svg></div><h4>Gambar</h4><p>PNG, JPG, WEBP, GIF, SVG, ICO</p></div>
+    <div class="format-item"><div class="icon-chip tone-maroon"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" stroke-linejoin="miter"/><path d="m10 9 6 3-6 3V9Z" stroke-linejoin="miter"/></svg></div><h4>Video</h4><p>MP4, WEBM, MOV, MKV, AVI</p></div>
+    <div class="format-item"><div class="icon-chip tone-red"><svg class="icon" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12" stroke-linejoin="miter"/><circle cx="7" cy="18" r="2.2"/><circle cx="17" cy="16" r="2.2"/></svg></div><h4>Audio</h4><p>MP3, WAV, OGG, M4A, FLAC</p></div>
+  </div>
+
+  <div class="explain-table" style="margin-top:40px;">
+    <div class="explain-row tone-yellow">
+      <div class="cell-num">01.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" stroke-linejoin="miter"/><path d="M9 9h6M9 13h6" stroke-linecap="square"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Batas Ukuran</h3>
+        <div class="tags">Media &middot; Per File</div>
+        <p>Setiap file media punya batas ukuran maksimum yang dijaga agar layanan tetap stabil untuk semua pengguna.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Limit</small></div></div>
+    </div>
+    <div class="explain-row tone-maroon">
+      <div class="cell-num">02.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" stroke-linejoin="miter"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linejoin="miter"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Keamanan</h3>
+        <div class="tags">Validasi &middot; Rate Limit</div>
+        <p>Setiap file divalidasi ekstensi dan ukurannya, lalu disimpan dengan nama acak. Tidak pernah dieksekusi di server.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Aman</small></div></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>P4DROP &middot; Developer by Pajar</span>
+      <span>File Hosting &amp; CDN</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/upload.js"></script>
+</body>
+</html>

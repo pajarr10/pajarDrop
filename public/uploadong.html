@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Upload File &amp; Source — P4DROP</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="/" class="brand">
+    <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
+      <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#F8DCC0" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
+    </svg>
+    <span>P4DROP</span>
+  </a>
+  <nav class="nav-links">
+    <a href="/upload">Upload</a>
+    <a href="/uploadong">Upload Lainnya</a>
+    <a href="/status">Analysis</a>
+  </nav>
+</header>
+
+<section class="uploader-hero">
+  <div class="uploader-hero-inner">
+    <span class="eyebrow">/uploadong — file &amp; source</span>
+    <h1>Upload File &amp; Source</h1>
+    <p>TXT, JSON, HTML, CSS, JS, XML, archive, dan format teks/source lainnya. Punya masa aktif sesuai pilihanmu.</p>
+  </div>
+</section>
+
+<main class="uploader-wrap">
+  <div class="textup-layout reveal">
+    <div class="tu-head">
+      <h3>Form Upload</h3>
+      <span class="eyebrow">Wajib isi nama &amp; masa aktif</span>
+    </div>
+    <div class="tu-body">
+      <div class="rf-label"><span class="diamond">&#9670;</span> Area Upload</div>
+      <div class="dropzone" id="dropzone">
+        <div class="icon-chip icon-chip-lg tone-maroon" style="margin:0 auto 12px;">
+          <svg class="icon" viewBox="0 0 48 48"><path d="M24 8v26M24 34l-11-11M24 34l11-11" stroke-linecap="square" stroke-linejoin="miter"/><rect x="10" y="40" width="28" height="5"/></svg>
+        </div>
+        <h3>Drag &amp; drop file di sini</h3>
+        <p>atau klik untuk memilih file dari perangkatmu</p>
+        <input type="file" id="fileInput" />
+      </div>
+
+      <div class="form-grid" id="metaForm" style="display:none;">
+        <div class="field">
+          <span>Nama File (tanpa ekstensi)</span>
+          <input type="text" id="filenameInput" placeholder="SC BOT RYZAHEN" />
+        </div>
+        <div class="field">
+          <span>Deskripsi</span>
+          <textarea id="descInput" placeholder="ini sc bot wa"></textarea>
+        </div>
+        <div class="field">
+          <span>Masa Aktif</span>
+          <div class="chip-row" id="expiryChips">
+            <div class="chip" data-value="1h">1 Jam</div>
+            <div class="chip active" data-value="24h">24 Jam</div>
+            <div class="chip" data-value="5d">5 Hari</div>
+            <div class="chip" data-value="15d">15 Hari</div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" id="submitBtn">Upload Sekarang</button>
+      </div>
+
+      <div id="uploadList"></div>
+    </div>
+  </div>
+
+  <div class="format-grid" style="margin-top:40px;">
+    <div class="format-item"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><path d="m9 8-4 4 4 4M15 8l4 4-4 4" stroke-linecap="square" stroke-linejoin="miter"/></svg></div><h4>Source Code</h4><p>JS, PY, PHP, JSON, HTML, CSS</p></div>
+    <div class="format-item"><div class="icon-chip tone-maroon"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7h18M3 7v12h18V7M3 7l2-3h14l2 3" stroke-linejoin="miter"/><path d="M9 11h6" stroke-linecap="square"/></svg></div><h4>Archive</h4><p>ZIP, RAR, 7Z, TAR, GZ</p></div>
+    <div class="format-item"><div class="icon-chip tone-red"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z" stroke-linejoin="miter"/><path d="M14 3v5h5" stroke-linejoin="miter"/></svg></div><h4>Dokumen</h4><p>TXT, MD, CSV, XML, YAML</p></div>
+  </div>
+
+  <div class="explain-table" style="margin-top:40px;">
+    <div class="explain-row tone-yellow">
+      <div class="cell-num">01.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2" stroke-linecap="square"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Masa Aktif Fleksibel</h3>
+        <div class="tags">1 Jam &middot; 24 Jam &middot; 5 Hari &middot; 15 Hari</div>
+        <p>Tentukan sendiri berapa lama file bisa diakses. Setelah masa aktif habis, link otomatis tidak bisa dibuka lagi.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Expiry</small></div></div>
+    </div>
+    <div class="explain-row tone-maroon">
+      <div class="cell-num">02.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" stroke-linejoin="miter"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linejoin="miter"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Tidak Pernah Dieksekusi</h3>
+        <div class="tags">Attachment &middot; Bukan Runtime</div>
+        <p>Apa pun ekstensinya, file dari /uploadong disimpan dan disajikan sebagai attachment biner. Tidak pernah dijalankan di server.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Aman</small></div></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>P4DROP &middot; Developer by Pajar</span>
+      <span>File Hosting &amp; CDN</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/uploadong.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4DROP CDN Statistics</title>
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<header class="nav">
+  <a href="/" class="brand">
+    <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
+      <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#F8DCC0" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
+    </svg>
+    <span>P4DROP</span>
+  </a>
+  <nav class="nav-links">
+    <a href="/upload">Upload</a>
+    <a href="/uploadong">Upload Lainnya</a>
+    <a href="/status">Analysis</a>
+  </nav>
+</header>
+
+<main class="status-wrap">
+  <h1>P4DROP CDN Statistics</h1>
+  <p class="status-meta" id="metaLine">Memuat data...</p>
+  <div class="stat-grid reveal" id="statGrid"></div>
+
+  <div class="explain-table reveal" style="margin-top:48px;">
+    <div class="explain-row tone-yellow">
+      <div class="cell-num">01.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><path d="M4 19h16M7 15v4M12 10v9M17 6v13" stroke-linecap="square"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Data Real-Time</h3>
+        <div class="tags">Live &middot; Auto Refresh</div>
+        <p>Semua angka di halaman ini dihitung langsung dari data sistem dan diperbarui otomatis setiap 15 detik.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Live</small></div></div>
+    </div>
+    <div class="explain-row tone-maroon">
+      <div class="cell-num">02.</div>
+      <div class="cell-icon"><div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" stroke-linejoin="miter"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linejoin="miter"/></svg></div></div>
+      <div class="cell-main">
+        <h3>Transparan</h3>
+        <div class="tags">Tanpa Angka Palsu</div>
+        <p>Total file, storage, upload rate, dan bandwidth ditampilkan apa adanya — tidak ada angka yang direkayasa.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Info<small>Akurat</small></div></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <span>P4DROP &middot; Developer by Pajar</span>
+      <span>File Hosting &amp; CDN</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script src="/js/status.js"></script>
+</body>
+</html>

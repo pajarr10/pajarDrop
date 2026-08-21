@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P4DROP — File Hosting &amp; Direct Link</title>
+<meta name="description" content="P4DROP mengubah file jadi direct link. Upload sekali, dapat URL permanen yang bisa langsung dipakai di aplikasi, bot, atau website." />
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="nav">
+  <a href="/" class="brand">
+    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
+      <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#F8DCC0" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
+    </svg>
+    <span>P4DROP</span>
+  </a>
+  <nav class="nav-links">
+    <a href="/upload">Upload</a>
+    <a href="/uploadong">Upload Lainnya</a>
+    <a href="/status">Analysis</a>
+    <a href="/upload" class="nav-cta">Mulai Upload</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-meta-line">
+        <span class="diamond">&#9670;</span>
+        <span class="eyebrow">P4DROP &middot; V1 &middot; FILE HOSTING PERMANEN</span>
+        <span class="rule"></span>
+      </div>
+      <h1 class="wordmark">
+        <span class="w-line w-top">P4J&Delta;R</span>
+        <span class="w-line w-bottom">DROP</span>
+      </h1>
+      <p class="lead">Upload file, dapat URL. Tidak ada langkah tambahan, tidak ada login wajib, tidak ada halaman perantara yang aneh-aneh.</p>
+      <dl class="hero-stats">
+        <div><dt>Fungsi</dt><dd>Hosting File</dd></div>
+        <div><dt>Format</dt><dd>Media &amp; Source</dd></div>
+        <div><dt>Status</dt><dd>Gratis<small>Tanpa Login</small></dd></div>
+        <div><dt>Eksekusi File</dt><dd>Nol<small>Murni Hosting</small></dd></div>
+      </dl>
+      <div class="hero-ctas">
+        <a href="/upload" class="btn btn-primary">Mulai Upload</a>
+        <a href="/uploadong" class="btn btn-accent">Upload Lainnya</a>
+        <a href="/status" class="btn btn-ghost">Analysis</a>
+      </div>
+    </div>
+    <div class="hero-facts">
+      <div class="fact"><span>Login</span><strong>Tidak Wajib</strong></div>
+      <div class="fact"><span>Media</span><strong>Permanen</strong></div>
+      <div class="fact"><span>API</span><strong>Open Access</strong></div>
+      <div class="fact"><span>Eksekusi File</span><strong>Nol</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <span>Upload Cepat</span>
+      <span>Hosting <b>Permanen</b></span>
+      <span>Direct Link</span>
+      <span>Developer API <b>Open Access</b></span>
+      <span>Tanpa Login</span>
+    </div>
+    <div class="marquee-set" aria-hidden="true">
+      <span>Upload Cepat</span>
+      <span>Hosting <b>Permanen</b></span>
+      <span>Direct Link</span>
+      <span>Developer API <b>Open Access</b></span>
+      <span>Tanpa Login</span>
+    </div>
+  </div>
+</div>
+
+<section class="upload-focal">
+  <div class="upload-focal-inner reveal">
+    <div class="upload-focal-head">
+      <div>
+        <span class="section-num">01 — Upload</span>
+        <h2>Tarik file, lepas di sini.</h2>
+      </div>
+      <a href="/upload" class="btn btn-primary">Buka Halaman Upload</a>
+    </div>
+    <div class="drop-panel">
+      <div class="drop-panel-main">
+        <div class="icon-chip icon-chip-lg tone-red" style="margin:0 auto 16px;">
+          <svg class="icon" viewBox="0 0 48 48"><path d="M24 8v26M24 34l-11-11M24 34l11-11" stroke-linecap="square" stroke-linejoin="miter"/><rect x="10" y="40" width="28" height="5"/></svg>
+        </div>
+        <h3>Drag file ke area ini</h3>
+        <p>Gambar, video, audio, archive, source code — hampir semua format umum.</p>
+        <a href="/upload" class="btn btn-accent">Pilih File</a>
+      </div>
+      <div class="drop-panel-side">
+        <div class="side-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>URL langsung setelah upload selesai</span>
+        </div>
+        <div class="side-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>Media tanpa masa kadaluarsa</span>
+        </div>
+        <div class="side-item">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+          <span>File non-media lewat /uploadong dengan masa aktif fleksibel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee marquee-alt">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <span>Upload File</span>
+      <span>Hosting Permanen</span>
+      <span>Tanpa Limit Server</span>
+      <span>Gratis Selamanya</span>
+      <span>No API Key Required</span>
+    </div>
+    <div class="marquee-set" aria-hidden="true">
+      <span>Upload File</span>
+      <span>Hosting Permanen</span>
+      <span>Tanpa Limit Server</span>
+      <span>Gratis Selamanya</span>
+      <span>No API Key Required</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-num">02 — Format</span>
+      <h2>Yang bisa diupload</h2>
+    </div>
+    <p>Media lewat /upload. File, source, dan archive lewat /uploadong.</p>
+  </div>
+  <div class="format-grid reveal-stagger">
+    <div class="format-item">
+      <div class="icon-chip tone-maroon" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="0" stroke-linejoin="miter"/><circle cx="9" cy="10" r="1.6"/><path d="m4 17 5-5 4 4 3-3 4 4" stroke-linejoin="miter"/></svg></div>
+      <h4>Gambar</h4>
+      <p>PNG, JPG, WEBP, GIF, SVG, ICO</p>
+    </div>
+    <div class="format-item">
+      <div class="icon-chip" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" stroke-linejoin="miter"/><path d="m10 9 6 3-6 3V9Z" stroke-linejoin="miter"/></svg></div>
+      <h4>Video</h4>
+      <p>MP4, WEBM, MOV, MKV, AVI</p>
+    </div>
+    <div class="format-item">
+      <div class="icon-chip tone-red" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12" stroke-linejoin="miter"/><circle cx="7" cy="18" r="2.2"/><circle cx="17" cy="16" r="2.2"/></svg></div>
+      <h4>Audio</h4>
+      <p>MP3, WAV, OGG, M4A, FLAC</p>
+    </div>
+    <div class="format-item">
+      <div class="icon-chip tone-maroon" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><path d="M3 7h18M3 7v12h18V7M3 7l2-3h14l2 3" stroke-linejoin="miter"/><path d="M9 11h6" stroke-linecap="square"/></svg></div>
+      <h4>Archive</h4>
+      <p>ZIP, RAR, 7Z, TAR, GZ</p>
+    </div>
+    <div class="format-item">
+      <div class="icon-chip" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><path d="m9 8-4 4 4 4M15 8l4 4-4 4" stroke-linecap="square" stroke-linejoin="miter"/></svg></div>
+      <h4>Source Code</h4>
+      <p>JS, PY, PHP, JSON, HTML, CSS</p>
+    </div>
+    <div class="format-item">
+      <div class="icon-chip tone-red" style="margin-bottom:12px;"><svg class="icon" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z" stroke-linejoin="miter"/><path d="M14 3v5h5" stroke-linejoin="miter"/></svg></div>
+      <h4>Dokumen</h4>
+      <p>TXT, MD, CSV, XML, YAML</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-num">03 — Kenapa P4DROP</span>
+      <h2>Dibangun untuk dipakai serius</h2>
+    </div>
+    <p>Bukan sekadar form upload. Empat hal yang kami jaga.</p>
+  </div>
+  <div class="explain-table reveal-stagger">
+    <div class="explain-row tone-yellow">
+      <div class="cell-num">01.</div>
+      <div class="cell-icon">
+        <div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke-linejoin="round"/></svg></div>
+      </div>
+      <div class="cell-main">
+        <h3>Upload Cepat</h3>
+        <div class="tags">Langsung &middot; Tanpa Antrian</div>
+        <p>File langsung dikirim ke storage tanpa proses tambahan di server, jadi tidak ada waktu tunggu yang tidak perlu.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Kategori<small>Kecepatan</small></div></div>
+    </div>
+    <div class="explain-row tone-maroon">
+      <div class="cell-num">02.</div>
+      <div class="cell-icon">
+        <div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" stroke-linejoin="miter"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linejoin="miter"/></svg></div>
+      </div>
+      <div class="cell-main">
+        <h3>Hosting Permanen</h3>
+        <div class="tags">Media &middot; Tanpa Kadaluarsa</div>
+        <p>File media dari /upload tersimpan tanpa batas waktu. Tidak pernah dihapus otomatis oleh sistem.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Kategori<small>Storage</small></div></div>
+    </div>
+    <div class="explain-row tone-yellow">
+      <div class="cell-num">03.</div>
+      <div class="cell-icon">
+        <div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><path d="M9 15 15 9" stroke-linecap="square"/><path d="M11 6h3a4 4 0 0 1 0 8h-3M13 18h-3a4 4 0 0 1 0-8h3" stroke-linejoin="miter"/></svg></div>
+      </div>
+      <div class="cell-main">
+        <h3>Direct Link</h3>
+        <div class="tags">Bersih &middot; Siap Embed</div>
+        <p>URL bersih di domain CDN, siap dipakai langsung di tag &lt;img&gt;, embed, atau bot buatanmu sendiri.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Kategori<small>URL</small></div></div>
+    </div>
+    <div class="explain-row tone-maroon">
+      <div class="cell-num">04.</div>
+      <div class="cell-icon">
+        <div class="icon-chip"><svg class="icon" viewBox="0 0 24 24"><path d="m9 8-4 4 4 4M15 8l4 4-4 4" stroke-linecap="square" stroke-linejoin="miter"/></svg></div>
+      </div>
+      <div class="cell-main">
+        <h3>Developer API</h3>
+        <div class="tags">REST &middot; Open Access</div>
+        <p>Endpoint REST terbuka, tanpa API key, tanpa login. Respons JSON siap di-parse ke aplikasimu.</p>
+      </div>
+      <div class="cell-tag"><div class="badge-box">Kategori<small>Developer</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-num">04 — Proses</span>
+      <h2>Dari file ke URL</h2>
+    </div>
+  </div>
+  <div class="workflow-row reveal-stagger">
+    <div class="workflow-step">
+      <div class="step-no">01</div>
+      <h4>Pilih File</h4>
+      <p>Drag &amp; drop atau klik untuk memilih dari perangkatmu.</p>
+    </div>
+    <div class="workflow-step">
+      <div class="step-no">02</div>
+      <h4>Upload</h4>
+      <p>File langsung dikirim ke storage, progress ditampilkan real-time.</p>
+    </div>
+    <div class="workflow-step">
+      <div class="step-no">03</div>
+      <h4>Dapat URL</h4>
+      <p>Sistem membalas dengan direct link dan metadata lengkap.</p>
+    </div>
+    <div class="workflow-step">
+      <div class="step-no">04</div>
+      <h4>Bagikan</h4>
+      <p>Copy URL, buka di tab baru, atau pakai langsung di aplikasimu.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="api">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-num">05 — Untuk Developer</span>
+      <h2>Developer API</h2>
+    </div>
+  </div>
+  <div class="tag-badge-row reveal">
+    <div class="tag-badge">Public API<small>For Geeks</small></div>
+  </div>
+  <div class="api-card reveal">
+    <div class="api-tags"><span>Endpoint</span><span>JSON</span><span>Open Access</span></div>
+    <p style="opacity:0.85;max-width:560px;">Tembak file langsung ke endpoint upload dari aplikasimu sendiri. Tidak perlu API key, tidak perlu login. Respons berisi metadata lengkap yang siap di-parse.</p>
+
+    <div class="api-grid">
+      <div><span class="label">Method</span>POST</div>
+      <div><span class="label">Body</span>FormData</div>
+    </div>
+
+    <div class="term-window">
+      <div class="term-titlebar">
+        <div class="term-dots"><span></span><span></span><span></span></div>
+        <span class="term-label">Endpoint URL</span>
+        <span class="term-copy" data-copy-term="endpointUrl">Copy</span>
+      </div>
+      <div class="term-body" id="endpointUrl">[POST] https://domain.com/api/upload</div>
+    </div>
+
+    <div class="term-window">
+      <div class="term-titlebar">
+        <div class="term-dots"><span></span><span></span><span></span></div>
+        <span class="term-label">cURL Example</span>
+        <span class="term-copy" data-copy-term="curlExample">Copy</span>
+      </div>
+      <div class="term-body" id="curlExample">curl -X POST \
+  -F "file=@image.png" \
+  https://domain.com/api/upload</div>
+    </div>
+
+    <div class="term-window">
+      <div class="term-titlebar">
+        <div class="term-tabs">
+          <span class="active">200 OK</span>
+          <span>429 Rate Limit</span>
+          <span>400 No File</span>
+          <span>413 Too Large</span>
+        </div>
+      </div>
+      <div class="term-body">{
+  "success": true,
+  "id": "44kw8",
+  "url": "https://c.domain.com/pajar/44kw8.png",
+  "filename": "44kw8.png",
+  "size": 128394,
+  "mime": "image/png",
+  "uploadedAt": "2026-08-20T06:15:00.000Z",
+  "expiresAt": null
+}</div>
+    </div>
+
+    <div class="hero-ctas" style="margin-top:24px;">
+      <button class="btn btn-accent" id="testExecBtn">Test Exec API</button>
+    </div>
+    <div id="testExecResult" style="margin-top:14px;display:none;">
+      <pre class="api-code" id="testExecOutput"></pre>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head reveal">
+    <div>
+      <span class="section-num">06 — FAQ</span>
+      <h2>Yang sering ditanyakan</h2>
+    </div>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <h4><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" stroke-linecap="square"/></svg> Apakah wajib login?</h4>
+      <p>Tidak. Upload media dan file bisa dilakukan langsung tanpa akun. Login hanya dipakai untuk panel admin internal.</p>
+    </div>
+    <div class="faq-item">
+      <h4><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" stroke-linecap="square"/></svg> Apakah file media punya masa kadaluarsa?</h4>
+      <p>Tidak. File yang diupload lewat /upload tersimpan permanen. File dari /uploadong punya masa aktif yang kamu pilih sendiri: 1 jam, 24 jam, 5 hari, atau 15 hari.</p>
+    </div>
+    <div class="faq-item">
+      <h4><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" stroke-linecap="square"/></svg> Apakah file yang diupload dieksekusi di server?</h4>
+      <p>Tidak, tidak pernah. P4DROP murni file hosting. Apa pun ekstensinya, file hanya disimpan dan disajikan sebagai attachment, bukan dijalankan.</p>
+    </div>
+    <div class="faq-item">
+      <h4><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18" stroke-linecap="square"/></svg> Ada batas ukuran file?</h4>
+      <p>Ada, disesuaikan dengan konfigurasi server untuk menjaga stabilitas layanan. Lihat halaman upload untuk batas yang berlaku saat ini.</p>
+    </div>
+  </div>
+</section>
+
+<section class="statement-section reveal">
+  <span class="eyebrow">P4DROP &middot; File Hosting &amp; CDN</span>
+  <h2><span class="line-a">We Host Files.</span><span class="line-b">That's It.</span></h2>
+  <div class="statement-dots">&#9670;&nbsp;&nbsp;&#9670;&nbsp;&nbsp;&#9670;&nbsp;&nbsp;&#9670;</div>
+</section>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <div class="marquee-set">
+      <span>No Limits</span>
+      <span>New Uploader</span>
+      <span>P4DROP</span>
+      <span>2026</span>
+      <span>Out Now</span>
+    </div>
+    <div class="marquee-set" aria-hidden="true">
+      <span>No Limits</span>
+      <span>New Uploader</span>
+      <span>P4DROP</span>
+      <span>2026</span>
+      <span>Out Now</span>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="brand">
+          <svg width="26" height="26" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="3" width="42" height="42" fill="#F8DCC0"/>
+            <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#2B0F0A" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+            <rect x="13" y="34" width="22" height="4" fill="#C81E12"/>
+          </svg>
+          <span>P4DROP</span>
+        </div>
+        <p class="footer-tagline">File hosting &amp; direct link. Dibangun oleh Pajar untuk kebutuhan upload yang cepat dan bisa diandalkan.</p>
+      </div>
+      <div class="footer-links-group">
+        <div>
+          <h5>Produk</h5>
+          <a href="/upload">Upload Media</a>
+          <a href="/uploadong">Upload Lainnya</a>
+          <a href="/status">Analysis</a>
+          <a href="/#api">Developer API</a>
+        </div>
+        <div>
+          <h5>Kontak</h5>
+          <a href="https://pajar.biz.id" target="_blank" rel="noopener">Portfolio</a>
+          <a href="https://wa.me/6285708557587" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://t.me/JarzGoslingF" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>P4DROP &middot; Developer by Pajar</span>
+      <span>File Hosting &amp; CDN</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/common.js"></script>
+<script>
+  (function () {
+    var base = window.location.protocol + "//" + window.location.host.replace(/^c\./, "");
+    document.getElementById("endpointUrl").textContent = "[POST] " + base + "/api/upload";
+    document.getElementById("curlExample").textContent =
+      'curl -X POST \\\n  -F "file=@image.png" \\\n  ' + base + "/api/upload";
+
+    document.getElementById("testExecBtn").addEventListener("click", function () {
+      var input = document.createElement("input");
+      input.type = "file";
+      input.onchange = async function () {
+        if (!input.files[0]) return;
+        var fd = new FormData();
+        fd.append("file", input.files[0]);
+        var out = document.getElementById("testExecOutput");
+        var box = document.getElementById("testExecResult");
+        box.style.display = "block";
+        out.textContent = "Mengirim request...";
+        try {
+          var res = await fetch(base + "/api/upload", { method: "POST", body: fd });
+          var json = await res.json();
+          out.textContent = JSON.stringify(json, null, 2);
+        } catch (err) {
+          out.textContent = "Error: " + err.message;
+        }
+      };
+      input.click();
+    });
+
+    document.querySelectorAll("[data-copy-term]").forEach(function (el) {
+      el.addEventListener("click", function () {
+        var target = document.getElementById(el.getAttribute("data-copy-term"));
+        if (target) window.p4CopyText(target.textContent);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
