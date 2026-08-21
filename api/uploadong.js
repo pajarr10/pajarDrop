@@ -1,7 +1,7 @@
 // api/uploadong.js
 const fs = require("fs");
 const { put } = require("@vercel/blob");
-const { getCdnBaseUrl } = require("../lib/domain");
+const { getAppBaseUrl } = require("../lib/domain");
 const { uploadId, sanitizeDisplayName, sanitizeExtension } = require("../lib/id");
 const { extOf, maxFileBytes, EXPIRY_OPTIONS } = require("../lib/validate");
 const { checkRateLimit } = require("../lib/ratelimit");
@@ -101,7 +101,7 @@ module.exports = async (req, res) => {
     };
     await saveFileRecord(record);
 
-    const url = `${getCdnBaseUrl(req)}/pjr/${id}`;
+    const url = `${getAppBaseUrl(req)}/pjr/${id}`;
 
     return sendJson(res, 200, {
       success: true,

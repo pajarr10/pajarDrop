@@ -1,7 +1,7 @@
 // api/upload.js
 const fs = require("fs");
 const { put } = require("@vercel/blob");
-const { getCdnBaseUrl } = require("../lib/domain");
+const { getAppBaseUrl } = require("../lib/domain");
 const { shortId, sanitizeDisplayName, sanitizeExtension } = require("../lib/id");
 const { extOf, isMediaExtension, mimeForExtension, maxMediaBytes } = require("../lib/validate");
 const { checkRateLimit } = require("../lib/ratelimit");
@@ -87,7 +87,7 @@ module.exports = async (req, res) => {
     };
     await saveFileRecord(record);
 
-    const url = `${getCdnBaseUrl(req)}/pajar/${id}.${ext}`;
+    const url = `${getAppBaseUrl(req)}/pajar/${id}.${ext}`;
 
     return sendJson(res, 200, {
       success: true,
