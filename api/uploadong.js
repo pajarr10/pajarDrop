@@ -1,9 +1,9 @@
-// api/upload.js
+// api/uploadong.js
 const fs = require("fs");
 const { put } = require("@vercel/blob");
 const { getCdnBaseUrl } = require("../lib/domain");
-const { shortId, sanitizeDisplayName, sanitizeExtension } = require("../lib/id");
-const { extOf, isMediaExtension, mimeForExtension, maxMediaBytes } = require("../lib/validate");
+const { uploadId, sanitizeDisplayName, sanitizeExtension } = require("../lib/id");
+const { extOf, maxFileBytes, EXPIRY_OPTIONS } = require("../lib/validate");
 const { checkRateLimit } = require("../lib/ratelimit");
 const { saveFileRecord, logError } = require("../lib/store");
 const { sendJson } = require("../lib/security");
@@ -36,72 +36,85 @@ module.exports = async (req, res) => {
       return sendJson(res, 500, { success: false, error: "Storage belum dikonfigurasi (BLOB_READ_WRITE_TOKEN kosong)." });
     }
 
-    const { files } = await parseMultipart(req, { maxBytes: maxMediaBytes() });
+    const { fields, files } = await parseMultipart(req, { maxBytes: maxFileBytes() });
     const file = firstValue(files.file);
     if (!file) {
       return sendJson(res, 400, { success: false, error: "Field 'file' wajib diisi (FormData)." });
     }
 
-    const originalName = file.originalFilename || "upload";
-    const ext = sanitizeExtension(extOf(originalName));
-
-    if (!ext || !isMediaExtension(ext)) {
-      return sendJson(res, 415, {
-        success: false,
-        error: `Format .${ext || "?"} tidak didukung di /upload. Gunakan endpoint /uploadong untuk file non-media.`,
-      });
-    }
-
-    if (file.size > maxMediaBytes()) {
+    if (file.size > maxFileBytes()) {
       return sendJson(res, 413, {
         success: false,
-        error: `Ukuran file melebihi batas maksimal ${(maxMediaBytes() / (1024 * 1024)).toFixed(0)} MB.`,
+        error: `Ukuran file melebihi batas maksimal ${(maxFileBytes() / (1024 * 1024)).toFixed(0)} MB.`,
       });
     }
 
-    const id = shortId();
-    const pathname = `pajar/${id}.${ext}`;
+    const description = sanitizeDisplayName(firstValue(fields.description) || "").slice(0, 300) || "";
+    const expiryKey = firstValue(fields.expiry) || "24h";
+    const expiryMs = EXPIRY_OPTIONS[expiryKey];
+    if (!expiryMs) {
+      return sendJson(res, 400, {
+        success: false,
+        error: "Masa aktif tidak valid. Pilihan: 1h, 24h, 5d, 15d.",
+      });
+    }
+
+    const originalName = file.originalFilename || "file";
+    const ext = sanitizeExtension(extOf(originalName));
+    const customNameRaw = firstValue(fields.filename);
+    const baseName = sanitizeDisplayName(
+      customNameRaw && customNameRaw.trim() ? customNameRaw : originalName.replace(/\.[^.]+$/, "")
+    );
+    const displayName = ext ? `${baseName}.${ext}` : baseName;
+
+    const id = uploadId();
+    const pathname = `pjr/${id}/${displayName}`;
     const buffer = fs.readFileSync(file.filepath);
-    const mime = mimeForExtension(ext);
 
     const blob = await put(pathname, buffer, {
       access: "public",
       addRandomSuffix: false,
-      contentType: mime,
+      // Selalu disimpan sebagai octet-stream: file dari /uploadong TIDAK PERNAH
+      // dieksekusi atau dirender aktif (mis. HTML/JS/PHP/SVG), hanya untuk
+      // disimpan & didownload sebagai attachment.
+      contentType: "application/octet-stream",
       token: process.env.BLOB_READ_WRITE_TOKEN,
     });
 
+    const uploadedAt = new Date().toISOString();
+    const expiresAt = new Date(Date.now() + expiryMs).toISOString();
+
     const record = {
       id,
-      kind: "media",
+      kind: "file",
       status: "ok",
-      displayName: sanitizeDisplayName(originalName.replace(/\.[^.]+$/, "")),
+      displayName,
       ext,
-      mime,
+      mime: "application/octet-stream",
       size: file.size,
+      description,
       blobUrl: blob.url,
       blobPathname: pathname,
-      uploadedAt: new Date().toISOString(),
-      expiresAt: null,
+      uploadedAt,
+      expiresAt,
       downloads: 0,
     };
     await saveFileRecord(record);
 
-    const url = `${getCdnBaseUrl(req)}/pajar/${id}.${ext}`;
+    const url = `${getCdnBaseUrl(req)}/pjr/${id}`;
 
     return sendJson(res, 200, {
       success: true,
       id,
       url,
-      filename: `${id}.${ext}`,
-      originalName,
+      filename: displayName,
       size: file.size,
-      mime,
-      uploadedAt: record.uploadedAt,
-      expiresAt: null,
+      description,
+      uploadedAt,
+      expiresAt,
     });
   } catch (err) {
-    await logError("api/upload", err && err.message);
+    await logError("api/uploadong", err && err.message);
     const isTooLarge = err && /maxFileSize/i.test(err.message || "");
     return sendJson(res, isTooLarge ? 413 : 500, {
       success: false,
