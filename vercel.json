@@ -1,0 +1,26 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/pajar", "destination": "/403.html" },
+    { "source": "/pajar/", "destination": "/403.html" },
+    { "source": "/pajar/:path*", "destination": "/api/pajar/:path*" },
+    { "source": "/pjr", "destination": "/403.html" },
+    { "source": "/pjr/", "destination": "/403.html" },
+    { "source": "/pjr/:id", "destination": "/api/pjr/:id" },
+    { "source": "/admen", "destination": "/api/admen" },
+    { "source": "/admen/dashboard", "destination": "/api/admen/dashboard" },
+    { "source": "/admen/logout", "destination": "/api/admen/logout" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}

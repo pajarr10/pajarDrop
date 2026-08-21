@@ -1,0 +1,12 @@
+{
+  "name": "p4drop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "P4Drop - File Upload & CDN by Pajar",
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@vercel/blob": "^0.27.1",
+    "formidable": "^3.5.1",
+    "nanoid": "^3.3.7"
+  }
+}
