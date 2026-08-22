@@ -659,9 +659,9 @@ a, button, .btn, .chip, .nav-links a, .feature-item, .format-item, .workflow-ste
 
 /* Big stacked wordmark (hero) — "P4J∆R" / "DROP" */
 .wordmark {
-  font-size: clamp(46px, 15vw, 220px);
+  font-size: clamp(56px, 20vw, 280px);
   font-weight: 400;
-  line-height: 0.82;
+  line-height: 0.8;
   letter-spacing: -0.01em;
   margin: 0 0 26px;
   text-transform: uppercase;
