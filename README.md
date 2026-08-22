@@ -61,7 +61,15 @@ Admin bisa mengaktifkan/mematikan maintenance mode dari `/admen/dashboard` (menu
 - Implementasi lewat `middleware.js` (Vercel Edge Middleware) yang mengecek status ke `GET /api/maintenance-status` setiap request. Kalau pengecekan gagal karena alasan apa pun, sistem **fail-open** (tetap tampil normal) supaya error tidak pernah mengunci semua pengguna keluar dari situs.
 - Halaman maintenance auto-refresh setiap 30 detik.
 
-## 6. Keamanan yang sudah diimplementasikan
+## 6. SEO (biar terindeks Google)
+
+- `/robots.txt` dan `/sitemap.xml` di-generate otomatis lewat `api/robots.js` dan `api/sitemap.js` — domain diambil dari request, bukan hardcode, jadi otomatis benar di domain apa pun.
+- Landing page (`/`) sudah punya meta description, Open Graph, Twitter Card, dan JSON-LD (`WebApplication` schema) supaya Google lebih mudah memahami isi situs.
+- `/upload`, `/uploadong`, `/status` masing-masing punya meta description dan canonical link sendiri.
+- Setelah deploy, submit domain kamu ke [Google Search Console](https://search.google.com/search-console) dan kirim `https://domainmu.com/sitemap.xml` supaya proses indexing lebih cepat — SEO organik butuh waktu (biasanya beberapa hari sampai minggu), file-file ini hanya mempermudah Google menemukan & memahami situsnya, bukan jaminan langsung muncul di halaman pertama.
+- `/admen` dan `/api/*` sengaja di-`Disallow` di robots.txt supaya tidak ikut ter-index.
+
+## 7. Keamanan yang sudah diimplementasikan
 
 - File dari `/uploadong` **tidak pernah dieksekusi** di server — selalu disimpan & disajikan sebagai `application/octet-stream` attachment, apa pun ekstensinya (termasuk `.php`, `.sh`, `.exe`, `.html`, `.svg`, dll).
 - Archive (`.zip`, `.rar`, `.7z`, `.tar`) **tidak pernah diekstrak otomatis**.
@@ -73,13 +81,15 @@ Admin bisa mengaktifkan/mematikan maintenance mode dari `/admen/dashboard` (menu
 - Security headers dasar (`X-Content-Type-Options`, `X-Frame-Options`, dll) via `vercel.json`.
 - Tidak ada secret yang di-hardcode — semua lewat environment variables.
 
-## 7. Catatan skala & pengembangan lanjutan
+## 8. Catatan skala & pengembangan lanjutan
 
-- Rate limiting & metadata saat ini disimpan sebagai JSON tunggal di Vercel Blob (read-modify-write). Ini **cukup untuk trafik kecil-menengah**, tapi punya risiko race condition kecil saat trafik sangat tinggi bersamaan. Untuk produksi skala besar, disarankan pindah ke **Vercel KV / Upstash Redis** untuk counter atomic, dan/atau database asli (Postgres/Turso) untuk metadata.
+- Setiap file metadata disimpan sebagai blob JSON **terpisah per-ID** (`meta/files/<id>.json`), bukan satu file JSON besar bersama. Ini penting: upload/baca satu file tidak pernah bertabrakan (race condition) dengan file lain, jadi file yang baru selesai diupload langsung bisa diakses tanpa risiko "hilang" karena tertimpa tulisan lain. Rate limit juga per client+menit di key terpisah (`meta/ratelimit/<client>-<menit>.json`) dengan alasan yang sama.
+- Yang masih memakai counter bersama (dan boleh sedikit meleset di trafik sangat tinggi bersamaan) hanya statistik agregat non-kritis: total upload sukses/gagal, total download, total bandwidth (`meta/counters.json`). Ini tidak memengaruhi apakah file bisa diakses atau tidak — murni angka tampilan di `/status`.
+- Untuk produksi skala sangat besar, tetap disarankan pindah ke **Vercel KV / Upstash Redis** untuk counter atomic, dan/atau database asli (Postgres/Turso) untuk metadata + query yang lebih efisien (saat ini `listFiles()` di admin dashboard melakukan fetch per-file, cukup untuk skala kecil-menengah).
 - Cleanup fisik file expired dari Blob storage belum otomatis (saat ini file expired cukup "tidak bisa diakses" secara logis). Bisa ditambahkan **Vercel Cron Job** yang memanggil endpoint cleanup harian.
 - Menu admin (`Storage Overview`, `File Type Settings`, dll) sudah menampilkan data nyata dari sistem dan siap dikembangkan lebih lanjut sesuai kebutuhan.
 
-## 8. Kontak
+## 9. Kontak
 
 - Portfolio: https://pajar.biz.id
 - WhatsApp: https://wa.me/6285708557587

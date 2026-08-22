@@ -2,6 +2,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/robots.txt", "destination": "/api/robots" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/pajar", "destination": "/403.html" },
     { "source": "/pajar/", "destination": "/403.html" },
     { "source": "/pajar/:path*", "destination": "/api/pajar/:path*" },
