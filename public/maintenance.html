@@ -1,49 +1,437 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="refresh" content="30" />
-<title>Sedang Maintenance — P4DROP</title>
-<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/css/style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta http-equiv="refresh" content="30" />
+
+  <meta name="theme-color" content="#120907" />
+  <meta name="description" content="P4DROP sedang menjalani maintenance terjadwal." />
+
+  <title>Maintenance — P4DROP</title>
+
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    :root {
+      --maintenance-bg: #100807;
+      --maintenance-card: rgba(255,255,255,.035);
+      --maintenance-border: rgba(255,255,255,.09);
+      --maintenance-text: #f8eee8;
+      --maintenance-muted: #a99b95;
+      --maintenance-accent: #f0c020;
+      --maintenance-red: #8f3028;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(143,48,40,.15), transparent 35%),
+        radial-gradient(circle at 20% 80%, rgba(240,192,32,.05), transparent 25%),
+        var(--maintenance-bg);
+      color: var(--maintenance-text);
+    }
+
+    .maintenance-page {
+      min-height: calc(100vh - 150px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 20px;
+    }
+
+    .maintenance-card {
+      position: relative;
+      width: 100%;
+      max-width: 620px;
+      padding: 46px 38px;
+      text-align: center;
+      overflow: hidden;
+
+      background: var(--maintenance-card);
+      border: 1px solid var(--maintenance-border);
+      border-radius: 24px;
+
+      box-shadow:
+        0 30px 100px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.04);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .maintenance-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.05),
+          transparent 30%
+        );
+    }
+
+    .status-icon {
+      position: relative;
+      width: 82px;
+      height: 82px;
+      margin: 0 auto 26px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 22px;
+      background: rgba(143,48,40,.14);
+      border: 1px solid rgba(143,48,40,.35);
+
+      box-shadow:
+        0 0 0 8px rgba(143,48,40,.035),
+        0 15px 45px rgba(143,48,40,.18);
+    }
+
+    .status-icon svg {
+      width: 38px;
+      height: 38px;
+      stroke: #f3d8c8;
+      stroke-width: 1.7;
+      fill: none;
+    }
+
+    .pulse {
+      position: absolute;
+      inset: -9px;
+      border: 1px solid rgba(143,48,40,.22);
+      border-radius: 27px;
+      animation: pulse 2.2s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: .8;
+        transform: scale(.96);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.12);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 12px;
+      border-radius: 999px;
+
+      background: rgba(240,192,32,.07);
+      border: 1px solid rgba(240,192,32,.15);
+
+      color: var(--maintenance-accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--maintenance-accent);
+      box-shadow: 0 0 12px var(--maintenance-accent);
+    }
+
+    .maintenance-title {
+      position: relative;
+      margin: 20px 0 12px;
+
+      font-family: "Anton", sans-serif;
+      font-size: clamp(42px, 8vw, 68px);
+      line-height: .98;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    .maintenance-title span {
+      color: var(--maintenance-accent);
+    }
+
+    .maintenance-desc {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto;
+
+      color: var(--maintenance-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .maintenance-info {
+      position: relative;
+      margin-top: 30px;
+      padding: 16px;
+
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px;
+      background: rgba(0,0,0,.14);
+
+      text-align: left;
+    }
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 13px;
+    }
+
+    .info-row + .info-row {
+      margin-top: 10px;
+    }
+
+    .info-label {
+      color: #82756f;
+    }
+
+    .info-value {
+      color: #ded2cb;
+      font-weight: 600;
+    }
+
+    .maintenance-progress {
+      position: relative;
+      height: 5px;
+      margin-top: 25px;
+
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+    }
+
+    .maintenance-progress::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      width: 45%;
+      border-radius: inherit;
+      background: linear-gradient(
+        90deg,
+        var(--maintenance-red),
+        var(--maintenance-accent)
+      );
+
+      animation: progress 2.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes progress {
+      from {
+        transform: translateX(-35%);
+      }
+      to {
+        transform: translateX(180%);
+      }
+    }
+
+    .maintenance-actions {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .maintenance-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      min-height: 44px;
+      padding: 0 18px;
+
+      border-radius: 11px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease,
+        background .2s ease;
+    }
+
+    .maintenance-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .maintenance-btn-primary {
+      color: #211707;
+      background: var(--maintenance-accent);
+    }
+
+    .maintenance-btn-primary:hover {
+      background: #ffd633;
+    }
+
+    .maintenance-btn-secondary {
+      color: #d9cdc6;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.09);
+    }
+
+    .maintenance-btn-secondary:hover {
+      background: rgba(255,255,255,.065);
+      border-color: rgba(255,255,255,.15);
+    }
+
+    .maintenance-note {
+      position: relative;
+      margin-top: 22px;
+      color: #665b56;
+      font-size: 11px;
+    }
+
+    @media (max-width: 600px) {
+      .maintenance-page {
+        padding: 35px 15px;
+      }
+
+      .maintenance-card {
+        padding: 35px 22px;
+        border-radius: 20px;
+      }
+
+      .maintenance-title {
+        font-size: 46px;
+      }
+
+      .info-row {
+        font-size: 12px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
 <header class="nav">
   <a href="/" class="brand">
-    <svg width="28" height="28" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="28"
+      height="28"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
       <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
-      <path d="M24 10V29M24 29L16 21M24 29L32 21" stroke="#F8DCC0" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" fill="none"/>
+      <path
+        d="M24 10V29M24 29L16 21M24 29L32 21"
+        stroke="#F8DCC0"
+        stroke-width="4"
+        stroke-linecap="square"
+        stroke-linejoin="miter"
+      />
       <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
     </svg>
+
     <span>P4DROP</span>
   </a>
 </header>
 
-<main class="wrap state-page" style="padding-top:64px;">
-  <div class="card state-card" style="max-width:520px;">
-    <div class="icon-chip icon-chip-lg tone-maroon" style="margin:0 auto 20px;">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4l-6.1 6.1 1.6 1.6 6.1-6.1a4 4 0 0 1 5.4-5.4l-2.6 2.6 1.3 1.3 2.6-2.6-1.3-1.3-1.6-1.6Z" stroke-linejoin="round"/></svg>
+<main class="maintenance-page">
+
+  <section class="maintenance-card">
+
+    <div class="status-icon">
+      <div class="pulse"></div>
+
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a4 4 0 0 1-5.4 5.4l-6.1 6.1 1.6 1.6 6.1-6.1a4 4 0 0 1 5.4-5.4l-2.6 2.6 1.3 1.3 2.6-2.6-1.3-1.3-1.6-1.6Z"/>
+      </svg>
     </div>
-    <span class="eyebrow" style="color:var(--accent2);">Sedang Berlangsung</span>
-    <h1 style="margin-top:10px;">Maintenance Terjadwal</h1>
-    <p class="muted">P4DROP sedang dalam perbaikan singkat. Upload dan akses file sementara tidak tersedia. Halaman ini akan otomatis refresh setiap 30 detik.</p>
-    <div class="hero-ctas" style="justify-content:center;margin-top:22px;">
-      <a href="/" class="btn btn-ghost">Coba Muat Ulang</a>
+
+    <div class="eyebrow">
+      Maintenance Aktif
     </div>
-  </div>
+
+    <h1 class="maintenance-title">
+      Lagi <span>Maintenance.</span>
+    </h1>
+
+    <p class="maintenance-desc">
+      P4DROP sedang melakukan perbaikan dan peningkatan sistem.
+      Untuk sementara, upload dan akses file belum tersedia.
+      Kami akan kembali secepatnya.
+    </p>
+
+    <div class="maintenance-info">
+      <div class="info-row">
+        <span class="info-label">Status</span>
+        <span class="info-value">Maintenance</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Layanan</span>
+        <span class="info-value">Sementara Offline</span>
+      </div>
+
+      <div class="info-row">
+        <span class="info-label">Auto Refresh</span>
+        <span class="info-value">30 detik</span>
+      </div>
+    </div>
+
+    <div class="maintenance-progress"></div>
+
+    <div class="maintenance-actions">
+      <a href="/" class="maintenance-btn maintenance-btn-primary">
+        ↻ Muat Ulang
+      </a>
+
+      <a href="/" class="maintenance-btn maintenance-btn-secondary">
+        Kembali ke Beranda
+      </a>
+    </div>
+
+    <div class="maintenance-note">
+      Terima kasih sudah menunggu.
+    </div>
+
+  </section>
+
 </main>
 
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-bottom">
-      <span>P4DROP &middot; Developer by Pajar</span>
+      <span>P4DROP · Developer by Pajar</span>
       <span>File Hosting &amp; CDN</span>
     </div>
   </div>
 </footer>
+
 </body>
 </html>
