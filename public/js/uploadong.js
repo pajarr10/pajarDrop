@@ -102,58 +102,98 @@
     fd.append("description", description || "");
     fd.append("expiry", expiry);
 
-    var xhr = new XMLHttpRequest();
-    var startTime = Date.now();
-    xhr.open("POST", "/api/uploadong");
+    attemptUpload(1);
 
-    xhr.upload.addEventListener("progress", function (e) {
-      if (!e.lengthComputable) return;
-      var percent = Math.round((e.loaded / e.total) * 100);
-      fill.style.width = percent + "%";
-      percentEl.textContent = percent + "%";
-      var elapsed = (Date.now() - startTime) / 1000;
-      var speed = elapsed > 0 ? e.loaded / elapsed : 0;
-      speedEl.textContent = window.p4FormatBytes(speed) + "/s";
-    });
+    function attemptUpload(attemptNumber) {
+      var xhr = new XMLHttpRequest();
+      var startTime = Date.now();
+      xhr.open("POST", "/api/uploadong");
+      xhr.timeout = 120000; // 120 detik — cukup longgar untuk koneksi lambat
 
-    xhr.onload = function () {
-      var json;
-      try {
-        json = JSON.parse(xhr.responseText);
-      } catch (err) {
-        json = { success: false, error: "Response tidak valid" };
+      xhr.upload.addEventListener("progress", function (e) {
+        if (!e.lengthComputable) return;
+        var percent = Math.round((e.loaded / e.total) * 100);
+        fill.style.width = percent + "%";
+        percentEl.textContent = percent + "%";
+        var elapsed = (Date.now() - startTime) / 1000;
+        var speed = elapsed > 0 ? e.loaded / elapsed : 0;
+        speedEl.textContent = window.p4FormatBytes(speed) + "/s";
+      });
+
+      xhr.onload = function () {
+        var json;
+        try {
+          json = JSON.parse(xhr.responseText);
+        } catch (err) {
+          json = { success: false, error: "Response tidak valid" };
+        }
+        if (xhr.status >= 200 && xhr.status < 300 && json.success) {
+          statusEl.textContent = "Selesai";
+          fill.style.width = "100%";
+          percentEl.textContent = "100%";
+          resultEl.classList.add("show");
+          var urlInput = item.querySelector('[data-role="urlInput"]');
+          urlInput.value = json.url;
+          item.querySelector('[data-role="copyBtn"]').addEventListener("click", function () {
+            window.p4CopyText(json.url);
+          });
+          item.querySelector('[data-role="openBtn"]').setAttribute("href", json.url);
+          item.querySelector('[data-role="rName"]').textContent = json.filename || filename;
+          item.querySelector('[data-role="rSize"]').textContent = window.p4FormatBytes(json.size || file.size);
+          item.querySelector('[data-role="rExpiry"]').textContent = json.expiresAt
+            ? new Date(json.expiresAt).toLocaleString("id-ID")
+            : "-";
+        } else {
+          showFailure(json.error || "Upload gagal.");
+        }
+      };
+
+      xhr.onerror = function () {
+        handleNetworkFailure();
+      };
+      xhr.ontimeout = function () {
+        handleNetworkFailure();
+      };
+
+      function handleNetworkFailure() {
+        if (attemptNumber < 2) {
+          statusEl.textContent = "Mencoba lagi...";
+          errorEl.style.display = "none";
+          setTimeout(function () {
+            attemptUpload(attemptNumber + 1);
+          }, 1200);
+        } else {
+          showFailure("Koneksi terputus. Periksa jaringanmu lalu coba lagi.", true);
+        }
       }
-      if (xhr.status >= 200 && xhr.status < 300 && json.success) {
-        statusEl.textContent = "Selesai";
-        fill.style.width = "100%";
-        percentEl.textContent = "100%";
-        resultEl.classList.add("show");
-        var urlInput = item.querySelector('[data-role="urlInput"]');
-        urlInput.value = json.url;
-        item.querySelector('[data-role="copyBtn"]').addEventListener("click", function () {
-          window.p4CopyText(json.url);
-        });
-        item.querySelector('[data-role="openBtn"]').setAttribute("href", json.url);
-        item.querySelector('[data-role="rName"]').textContent = json.filename || filename;
-        item.querySelector('[data-role="rSize"]').textContent = window.p4FormatBytes(json.size || file.size);
-        item.querySelector('[data-role="rExpiry"]').textContent = json.expiresAt
-          ? new Date(json.expiresAt).toLocaleString("id-ID")
-          : "-";
-      } else {
-        statusEl.textContent = "Gagal";
-        errorEl.style.display = "block";
-        errorEl.textContent = json.error || "Upload gagal.";
-        item.insertAdjacentHTML("beforeend", '<span class="ui-status-badge fail" style="margin-top:8px;">Upload Gagal</span>');
-      }
-    };
 
-    xhr.onerror = function () {
+      xhr.send(fd);
+    }
+
+    function showFailure(message, showRetryBtn) {
       statusEl.textContent = "Gagal";
       errorEl.style.display = "block";
-      errorEl.textContent = "Koneksi terputus. Coba lagi.";
-    };
-
-    xhr.send(fd);
+      errorEl.textContent = message;
+      var extra = '<span class="ui-status-badge fail" style="margin-top:8px;">Upload Gagal</span>';
+      if (showRetryBtn) {
+        extra += ' <button class="btn btn-sm" data-role="retryBtn" style="margin-top:8px;margin-left:8px;">Coba Lagi</button>';
+      }
+      item.insertAdjacentHTML("beforeend", extra);
+      var retryBtn = item.querySelector('[data-role="retryBtn"]');
+      if (retryBtn) {
+        retryBtn.addEventListener("click", function () {
+          retryBtn.remove();
+          fill.style.width = "0%";
+          percentEl.textContent = "0%";
+          errorEl.style.display = "none";
+          statusEl.textContent = "Mengunggah...";
+          item.querySelectorAll(".ui-status-badge").forEach(function (b) {
+            b.remove();
+          });
+          attemptUpload(1);
+        });
+      }
+    }
   }
 
   function escapeHtml(str) {
