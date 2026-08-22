@@ -1,19 +1,32 @@
 // api/pjr/[id].js
 const { getFileRecord, registerDownload, isExpired } = require("../../lib/store");
-const { isCdnHost } = require("../../lib/domain");
 const { pageShell, logoSvg, escapeHtml } = require("../../lib/render");
 const { formatBytes, formatDateID, formatRemaining } = require("../../lib/format");
 
+// Sama seperti api/pajar/[...file].js: id diprioritaskan dari req.query,
+// tapi kalau kosong, parse langsung dari req.url sebagai fallback yang
+// tidak bergantung pada bagaimana Vercel mem-populate query dari rewrite.
+function extractId(req) {
+  if (typeof req.query.id === "string" && req.query.id) return req.query.id;
+  try {
+    const url = new URL(req.url, "http://internal");
+    const parts = url.pathname.split("/").filter(Boolean);
+    let idx = parts.indexOf("pjr");
+    if (idx === -1) {
+      const apiIdx = parts.indexOf("api");
+      if (apiIdx !== -1 && parts[apiIdx + 1] === "pjr") idx = apiIdx + 1;
+    }
+    if (idx !== -1 && parts[idx + 1]) return decodeURIComponent(parts[idx + 1]);
+  } catch (err) {
+    // abaikan
+  }
+  return null;
+}
+
 module.exports = async (req, res) => {
   try {
-    if (!isCdnHost(req) && !/^localhost/.test(req.headers.host || "")) {
-      res.statusCode = 404;
-      res.setHeader("Content-Type", "text/plain; charset=utf-8");
-      return res.end("Not found");
-    }
-
-    const id = req.query.id;
-    const record = await getFileRecord(id);
+    const id = extractId(req);
+    const record = id ? await getFileRecord(id) : null;
 
     if (!record || record.kind !== "file") {
       return renderStateHtml(res, 404, "File Tidak Ditemukan", "Link ini tidak valid atau file sudah dihapus.");
