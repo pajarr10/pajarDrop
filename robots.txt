@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /upload
+Allow: /uploadong
+Allow: /status
+
+Disallow: /admen
+Disallow: /admen/
+Disallow: /api/
+Disallow: /pjr/
+Disallow: /pajar/
+
+Sitemap: https://p4drop.biz.id/sitemap.xml
