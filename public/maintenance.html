@@ -1,334 +1,630 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <meta http-equiv="refresh" content="30" />
-
-  <meta name="theme-color" content="#120907" />
-  <meta name="description" content="P4DROP sedang menjalani maintenance terjadwal." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="30">
 
   <title>Maintenance — P4DROP</title>
 
-  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet"
-  />
+  >
 
-  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/style.css">
 
   <style>
-    :root {
-      --maintenance-bg: #100807;
-      --maintenance-card: rgba(255,255,255,.035);
-      --maintenance-border: rgba(255,255,255,.09);
-      --maintenance-text: #f8eee8;
-      --maintenance-muted: #a99b95;
-      --maintenance-accent: #f0c020;
-      --maintenance-red: #8f3028;
-    }
+    /* =========================
+       MAINTENANCE PAGE
+       P4DROP BRUTALIST THEME
+    ========================= */
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(143,48,40,.15), transparent 35%),
-        radial-gradient(circle at 20% 80%, rgba(240,192,32,.05), transparent 25%),
-        var(--maintenance-bg);
-      color: var(--maintenance-text);
-    }
-
-    .maintenance-page {
-      min-height: calc(100vh - 150px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 70px 20px;
-    }
-
-    .maintenance-card {
-      position: relative;
-      width: 100%;
-      max-width: 620px;
-      padding: 46px 38px;
-      text-align: center;
+    .maintenance {
+      min-height: calc(100vh - 90px);
+      border-bottom: var(--border);
+      background: var(--paper);
       overflow: hidden;
-
-      background: var(--maintenance-card);
-      border: 1px solid var(--maintenance-border);
-      border-radius: 24px;
-
-      box-shadow:
-        0 30px 100px rgba(0,0,0,.45),
-        inset 0 1px rgba(255,255,255,.04);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
     }
 
-    .maintenance-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
+    .maintenance-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 42px 24px 70px;
+    }
+
+    /* TOP STATUS */
+
+    .maintenance-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .maintenance-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      border: var(--border);
+      padding: 9px 14px;
+
+      background: var(--accent);
+      color: var(--ink);
+
+      box-shadow: var(--shadow-sm);
+
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 9px;
+      height: 9px;
+      background: var(--accent2);
+      border: 2px solid var(--ink);
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: .25;
+      }
+    }
+
+    .maintenance-code {
+      border: var(--border-sm);
+      padding: 8px 12px;
+      background: var(--card);
+
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    /* MAIN GRID */
+
+    .maintenance-grid {
+      display: grid;
+      grid-template-columns: 1.45fr .55fr;
+      gap: 0;
+
+      border: var(--border);
+      box-shadow: var(--shadow-lg);
+
+      background: var(--card);
+    }
+
+    /* HERO */
+
+    .maintenance-main {
+      position: relative;
+      padding: clamp(30px, 5vw, 60px);
+
+      border-right: var(--border);
 
       background:
         linear-gradient(
           135deg,
-          rgba(255,255,255,.05),
-          transparent 30%
-        );
+          rgba(240,192,32,.18),
+          transparent 35%
+        ),
+        var(--card);
+
+      overflow: hidden;
     }
 
-    .status-icon {
-      position: relative;
-      width: 82px;
-      height: 82px;
-      margin: 0 auto 26px;
+    .maintenance-main::before {
+      content: "P4DROP";
 
-      display: grid;
-      place-items: center;
-
-      border-radius: 22px;
-      background: rgba(143,48,40,.14);
-      border: 1px solid rgba(143,48,40,.35);
-
-      box-shadow:
-        0 0 0 8px rgba(143,48,40,.035),
-        0 15px 45px rgba(143,48,40,.18);
-    }
-
-    .status-icon svg {
-      width: 38px;
-      height: 38px;
-      stroke: #f3d8c8;
-      stroke-width: 1.7;
-      fill: none;
-    }
-
-    .pulse {
       position: absolute;
-      inset: -9px;
-      border: 1px solid rgba(143,48,40,.22);
-      border-radius: 27px;
-      animation: pulse 2.2s ease-out infinite;
+      right: -35px;
+      bottom: -42px;
+
+      font-family: "Anton", sans-serif;
+      font-size: 150px;
+      line-height: .8;
+
+      color: rgba(43,15,10,.045);
+
+      pointer-events: none;
+      user-select: none;
     }
 
-    @keyframes pulse {
-      0% {
-        opacity: .8;
-        transform: scale(.96);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.12);
-      }
-    }
-
-    .eyebrow {
+    .maintenance-kicker {
       display: inline-flex;
       align-items: center;
       gap: 8px;
 
       padding: 7px 12px;
-      border-radius: 999px;
 
-      background: rgba(240,192,32,.07);
-      border: 1px solid rgba(240,192,32,.15);
+      background: var(--maroon);
+      color: var(--paper);
 
-      color: var(--maintenance-accent);
+      border: var(--border-sm);
+      box-shadow: var(--shadow-sm);
+
       font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .12em;
+      font-weight: 900;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .eyebrow::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--maintenance-accent);
-      box-shadow: 0 0 12px var(--maintenance-accent);
+    .maintenance-kicker span {
+      color: var(--accent);
     }
 
     .maintenance-title {
       position: relative;
-      margin: 20px 0 12px;
+      z-index: 1;
+
+      margin: 25px 0 16px;
+
+      max-width: 760px;
 
       font-family: "Anton", sans-serif;
-      font-size: clamp(42px, 8vw, 68px);
-      line-height: .98;
-      letter-spacing: .01em;
+      font-weight: 400;
+
+      font-size: clamp(55px, 9vw, 108px);
+      line-height: .83;
+
+      letter-spacing: -.015em;
       text-transform: uppercase;
     }
 
-    .maintenance-title span {
-      color: var(--maintenance-accent);
+    .maintenance-title .red {
+      color: var(--accent2);
+    }
+
+    .maintenance-title .yellow {
+      color: var(--accent);
+      text-shadow: 3px 3px 0 var(--ink);
     }
 
     .maintenance-desc {
       position: relative;
-      max-width: 480px;
-      margin: 0 auto;
+      z-index: 1;
 
-      color: var(--maintenance-muted);
-      font-size: 15px;
-      line-height: 1.7;
+      max-width: 610px;
+
+      margin: 0 0 28px;
+
+      color: var(--muted);
+
+      font-size: clamp(14px, 2vw, 17px);
+      line-height: 1.65;
     }
 
-    .maintenance-info {
-      position: relative;
-      margin-top: 30px;
-      padding: 16px;
-
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 14px;
-      background: rgba(0,0,0,.14);
-
-      text-align: left;
-    }
-
-    .info-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      font-size: 13px;
-    }
-
-    .info-row + .info-row {
-      margin-top: 10px;
-    }
-
-    .info-label {
-      color: #82756f;
-    }
-
-    .info-value {
-      color: #ded2cb;
-      font-weight: 600;
-    }
-
-    .maintenance-progress {
-      position: relative;
-      height: 5px;
-      margin-top: 25px;
-
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(255,255,255,.07);
-    }
-
-    .maintenance-progress::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-
-      width: 45%;
-      border-radius: inherit;
-      background: linear-gradient(
-        90deg,
-        var(--maintenance-red),
-        var(--maintenance-accent)
-      );
-
-      animation: progress 2.4s ease-in-out infinite alternate;
-    }
-
-    @keyframes progress {
-      from {
-        transform: translateX(-35%);
-      }
-      to {
-        transform: translateX(180%);
-      }
-    }
+    /* BUTTONS */
 
     .maintenance-actions {
       position: relative;
+      z-index: 2;
+
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 28px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    .maintenance-btn {
-      display: inline-flex;
+    /* TOOL BOX */
+
+    .maintenance-side {
+      display: flex;
+      flex-direction: column;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .side-head {
+      padding: 22px;
+
+      border-bottom: 2px solid rgba(248,220,192,.25);
+
+      background: var(--maroon);
+    }
+
+    .side-head .eyebrow {
+      color: var(--accent);
+    }
+
+    .side-head h3 {
+      margin: 6px 0 0;
+
+      color: var(--paper);
+
+      font-family: "Anton", sans-serif;
+      font-size: 27px;
+      font-weight: 400;
+
+      text-transform: uppercase;
+    }
+
+    .side-items {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .side-item {
+      padding: 20px;
+
+      border-bottom: 2px solid rgba(248,220,192,.15);
+
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .side-item:last-child {
+      border-bottom: none;
+    }
+
+    .side-icon {
+      width: 38px;
+      height: 38px;
+
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
 
-      min-height: 44px;
-      padding: 0 18px;
+      flex-shrink: 0;
 
-      border-radius: 11px;
-      text-decoration: none;
+      border: 2px solid var(--paper);
+      background: var(--accent);
+      color: var(--ink);
+    }
+
+    .side-item:nth-child(2) .side-icon {
+      background: var(--accent2);
+      color: var(--paper);
+    }
+
+    .side-item:nth-child(3) .side-icon {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .side-content strong {
+      display: block;
+
+      margin-bottom: 3px;
+
+      color: var(--paper);
+
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 900;
 
-      transition:
-        transform .2s ease,
-        border-color .2s ease,
-        background .2s ease;
+      text-transform: uppercase;
     }
 
-    .maintenance-btn:hover {
-      transform: translateY(-2px);
+    .side-content span {
+      display: block;
+
+      color: var(--muted-on-dark);
+
+      font-size: 12px;
+      line-height: 1.45;
     }
 
-    .maintenance-btn-primary {
-      color: #211707;
-      background: var(--maintenance-accent);
+    /* BIG NOTICE */
+
+    .maintenance-notice {
+      margin-top: 28px;
+
+      border: var(--border);
+      box-shadow: var(--shadow);
+
+      display: grid;
+      grid-template-columns: 110px 1fr;
+
+      background: var(--accent2);
+      color: var(--paper);
     }
 
-    .maintenance-btn-primary:hover {
-      background: #ffd633;
+    .notice-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-right: var(--border);
+
+      background: var(--maroon-deep);
+
+      font-family: "Anton", sans-serif;
+      font-size: 48px;
     }
 
-    .maintenance-btn-secondary {
-      color: #d9cdc6;
-      background: rgba(255,255,255,.035);
-      border: 1px solid rgba(255,255,255,.09);
+    .notice-content {
+      padding: 20px 22px;
     }
 
-    .maintenance-btn-secondary:hover {
-      background: rgba(255,255,255,.065);
-      border-color: rgba(255,255,255,.15);
+    .notice-content strong {
+      display: block;
+
+      margin-bottom: 4px;
+
+      font-size: 15px;
+      text-transform: uppercase;
     }
 
-    .maintenance-note {
-      position: relative;
-      margin-top: 22px;
-      color: #665b56;
+    .notice-content span {
+      display: block;
+
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* PROGRESS */
+
+    .maintenance-progress-box {
+      margin-top: 28px;
+
+      border: var(--border);
+      padding: 18px;
+
+      background: var(--paper-dim);
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 10px;
+    }
+
+    .progress-head strong {
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .progress-head span {
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .progress {
+      height: 22px;
+
+      border: var(--border-sm);
+
+      background: var(--card);
+
+      padding: 3px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 72%;
+
+      background: repeating-linear-gradient(
+        135deg,
+        var(--accent2) 0,
+        var(--accent2) 12px,
+        var(--maroon) 12px,
+        var(--maroon) 24px
+      );
+
+      animation: moveProgress 1.2s linear infinite;
+    }
+
+    @keyframes moveProgress {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: 24px 0;
+      }
+    }
+
+    /* LOWER CARDS */
+
+    .maintenance-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      margin-top: 28px;
+
+      border: var(--border);
+
+      box-shadow: var(--shadow);
+    }
+
+    .maintenance-card {
+      padding: 22px;
+
+      border-right: var(--border-sm);
+
+      background: var(--card);
+    }
+
+    .maintenance-card:last-child {
+      border-right: none;
+    }
+
+    .maintenance-card:nth-child(2) {
+      background: var(--paper-dim);
+    }
+
+    .maintenance-card:nth-child(3) {
+      background: var(--maroon);
+      color: var(--paper);
+    }
+
+    .maintenance-card .card-number {
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: var(--accent2);
+
+      font-family: "Anton", sans-serif;
+      font-size: 35px;
+      line-height: 1;
+    }
+
+    .maintenance-card:nth-child(3) .card-number {
+      color: var(--accent);
+    }
+
+    .maintenance-card h4 {
+      margin: 0 0 7px;
+
+      font-family: "Anton", sans-serif;
+      font-size: 21px;
+      font-weight: 400;
+
+      text-transform: uppercase;
+    }
+
+    .maintenance-card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .maintenance-card:nth-child(3) p {
+      color: var(--muted-on-dark);
+    }
+
+    /* DECORATIVE MARQUEE */
+
+    .maintenance-marquee {
+      margin-top: 30px;
+
+      border-top: var(--border);
+      border-bottom: var(--border);
+
+      overflow: hidden;
+
+      background: var(--ink);
+      color: var(--accent);
+
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      width: max-content;
+
+      display: flex;
+
+      animation: marquee 18s linear infinite;
+    }
+
+    .marquee-track span {
+      display: inline-block;
+
+      padding: 14px 20px;
+
+      font-family: "Anton", sans-serif;
+      font-size: 22px;
+      letter-spacing: .04em;
+    }
+
+    .marquee-track span:nth-child(even) {
+      color: var(--paper);
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* FOOTNOTE */
+
+    .maintenance-footnote {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+
+      margin-top: 20px;
+
+      color: var(--muted);
+
+      font-family: monospace;
       font-size: 11px;
+      text-transform: uppercase;
     }
 
-    @media (max-width: 600px) {
-      .maintenance-page {
-        padding: 35px 15px;
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .maintenance-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .maintenance-main {
+        border-right: none;
+        border-bottom: var(--border);
+      }
+
+      .maintenance-cards {
+        grid-template-columns: 1fr;
       }
 
       .maintenance-card {
-        padding: 35px 22px;
-        border-radius: 20px;
+        border-right: none;
+        border-bottom: var(--border-sm);
+      }
+
+      .maintenance-card:last-child {
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .maintenance-inner {
+        padding: 28px 16px 55px;
+      }
+
+      .maintenance-main {
+        padding: 30px 22px;
       }
 
       .maintenance-title {
-        font-size: 46px;
+        font-size: 57px;
       }
 
-      .info-row {
-        font-size: 12px;
+      .maintenance-notice {
+        grid-template-columns: 75px 1fr;
+      }
+
+      .notice-number {
+        font-size: 36px;
+      }
+
+      .notice-content {
+        padding: 16px;
+      }
+
+      .maintenance-main::before {
+        font-size: 90px;
+        right: -25px;
+        bottom: -20px;
       }
     }
   </style>
@@ -337,16 +633,18 @@
 <body>
 
 <header class="nav">
+
   <a href="/" class="brand">
+
     <svg
       width="28"
       height="28"
       viewBox="0 0 48 48"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
     >
       <rect x="3" y="3" width="42" height="42" fill="#2B0F0A"/>
+
       <path
         d="M24 10V29M24 29L16 21M24 29L32 21"
         stroke="#F8DCC0"
@@ -354,84 +652,333 @@
         stroke-linecap="square"
         stroke-linejoin="miter"
       />
-      <rect x="13" y="34" width="22" height="4" fill="#F0C020"/>
+
+      <rect
+        x="13"
+        y="34"
+        width="22"
+        height="4"
+        fill="#F0C020"
+      />
     </svg>
 
     <span>P4DROP</span>
+
   </a>
+
 </header>
 
-<main class="maintenance-page">
 
-  <section class="maintenance-card">
+<main class="maintenance">
 
-    <div class="status-icon">
-      <div class="pulse"></div>
+  <div class="maintenance-inner">
 
-      <svg viewBox="0 0 24 24">
-        <path d="M14.7 6.3a4 4 0 0 1-5.4 5.4l-6.1 6.1 1.6 1.6 6.1-6.1a4 4 0 0 1 5.4-5.4l-2.6 2.6 1.3 1.3 2.6-2.6-1.3-1.3-1.6-1.6Z"/>
-      </svg>
-    </div>
+    <!-- STATUS -->
 
-    <div class="eyebrow">
-      Maintenance Aktif
-    </div>
+    <div class="maintenance-top">
 
-    <h1 class="maintenance-title">
-      Lagi <span>Maintenance.</span>
-    </h1>
-
-    <p class="maintenance-desc">
-      P4DROP sedang melakukan perbaikan dan peningkatan sistem.
-      Untuk sementara, upload dan akses file belum tersedia.
-      Kami akan kembali secepatnya.
-    </p>
-
-    <div class="maintenance-info">
-      <div class="info-row">
-        <span class="info-label">Status</span>
-        <span class="info-value">Maintenance</span>
+      <div class="maintenance-status">
+        <span class="status-dot"></span>
+        SYSTEM MAINTENANCE
       </div>
 
-      <div class="info-row">
-        <span class="info-label">Layanan</span>
-        <span class="info-value">Sementara Offline</span>
+      <div class="maintenance-code">
+        STATUS :: 503 / TEMPORARY OFFLINE
       </div>
 
-      <div class="info-row">
-        <span class="info-label">Auto Refresh</span>
-        <span class="info-value">30 detik</span>
+    </div>
+
+
+    <!-- MAIN PANEL -->
+
+    <section class="maintenance-grid">
+
+      <div class="maintenance-main">
+
+        <div class="maintenance-kicker">
+          P4DROP <span>//</span> SYSTEM
+        </div>
+
+        <h1 class="maintenance-title">
+          LAGI<br>
+          <span class="red">DI</span><span class="yellow">RAWAT.</span>
+        </h1>
+
+        <p class="maintenance-desc">
+          P4DROP sedang menjalani maintenance terjadwal.
+          Beberapa layanan seperti upload, download, dan akses file
+          sementara tidak tersedia. Tenang, file hosting ini bakal
+          balik lagi setelah sistem selesai diberesin.
+        </p>
+
+        <div class="maintenance-actions">
+
+          <a href="/" class="btn btn-primary">
+            ↻ MUAT ULANG
+          </a>
+
+          <a href="/" class="btn btn-accent">
+            KEMBALI
+          </a>
+
+        </div>
+
+
+        <!-- NOTICE -->
+
+        <div class="maintenance-notice">
+
+          <div class="notice-number">
+            01
+          </div>
+
+          <div class="notice-content">
+
+            <strong>
+              Jangan khawatir.
+            </strong>
+
+            <span>
+              Maintenance ini bersifat sementara.
+              Halaman akan otomatis mencoba memuat ulang
+              setiap 30 detik.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROGRESS -->
+
+        <div class="maintenance-progress-box">
+
+          <div class="progress-head">
+
+            <strong>
+              SYSTEM STATUS
+            </strong>
+
+            <span>
+              WORKING...
+            </span>
+
+          </div>
+
+          <div class="progress">
+
+            <div class="progress-bar"></div>
+
+          </div>
+
+        </div>
+
       </div>
+
+
+      <!-- SIDE PANEL -->
+
+      <aside class="maintenance-side">
+
+        <div class="side-head">
+
+          <div class="eyebrow">
+            CURRENT STATUS
+          </div>
+
+          <h3>
+            Layanan
+          </h3>
+
+        </div>
+
+
+        <div class="side-items">
+
+          <div class="side-item">
+
+            <div class="side-icon">
+              ↑
+            </div>
+
+            <div class="side-content">
+
+              <strong>Upload</strong>
+
+              <span>
+                Sementara tidak tersedia.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="side-item">
+
+            <div class="side-icon">
+              ↓
+            </div>
+
+            <div class="side-content">
+
+              <strong>Download</strong>
+
+              <span>
+                Akses file sedang dihentikan.
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="side-item">
+
+            <div class="side-icon">
+              ✓
+            </div>
+
+            <div class="side-content">
+
+              <strong>System</strong>
+
+              <span>
+                Maintenance sedang berjalan.
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+    </section>
+
+
+    <!-- THREE CARDS -->
+
+    <section class="maintenance-cards">
+
+      <article class="maintenance-card">
+
+        <span class="card-number">
+          01
+        </span>
+
+        <h4>
+          Perbaikan
+        </h4>
+
+        <p>
+          Sistem sedang diperiksa dan diperbaiki
+          agar layanan kembali normal.
+        </p>
+
+      </article>
+
+
+      <article class="maintenance-card">
+
+        <span class="card-number">
+          02
+        </span>
+
+        <h4>
+          Optimasi
+        </h4>
+
+        <p>
+          Beberapa bagian sistem sedang dioptimalkan
+          untuk performa yang lebih baik.
+        </p>
+
+      </article>
+
+
+      <article class="maintenance-card">
+
+        <span class="card-number">
+          03
+        </span>
+
+        <h4>
+          Back Soon
+        </h4>
+
+        <p>
+          Setelah maintenance selesai,
+          P4DROP akan kembali melayani upload
+          dan akses file.
+        </p>
+
+      </article>
+
+    </section>
+
+
+    <!-- MARQUEE -->
+
+    <div class="maintenance-marquee">
+
+      <div class="marquee-track">
+
+        <span>P4DROP</span>
+        <span>MAINTENANCE</span>
+        <span>FILE HOSTING</span>
+        <span>CDN</span>
+        <span>BACK SOON</span>
+
+        <span>P4DROP</span>
+        <span>MAINTENANCE</span>
+        <span>FILE HOSTING</span>
+        <span>CDN</span>
+        <span>BACK SOON</span>
+
+      </div>
+
     </div>
 
-    <div class="maintenance-progress"></div>
 
-    <div class="maintenance-actions">
-      <a href="/" class="maintenance-btn maintenance-btn-primary">
-        ↻ Muat Ulang
-      </a>
+    <div class="maintenance-footnote">
 
-      <a href="/" class="maintenance-btn maintenance-btn-secondary">
-        Kembali ke Beranda
-      </a>
+      <span>
+        P4DROP // DEVELOPER BY PAJAR
+      </span>
+
+      <span>
+        AUTO REFRESH // 30 SEC
+      </span>
+
     </div>
 
-    <div class="maintenance-note">
-      Terima kasih sudah menunggu.
-    </div>
-
-  </section>
+  </div>
 
 </main>
 
+
 <footer class="footer">
+
   <div class="footer-inner">
+
     <div class="footer-bottom">
-      <span>P4DROP · Developer by Pajar</span>
-      <span>File Hosting &amp; CDN</span>
+
+      <span>
+        P4DROP &middot; Developer by Pajar
+      </span>
+
+      <span>
+        File Hosting &amp; CDN
+      </span>
+
     </div>
+
   </div>
+
 </footer>
+
 
 </body>
 </html>
