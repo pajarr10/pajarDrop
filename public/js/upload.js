@@ -116,7 +116,16 @@
 
         if (file.type.startsWith("image/")) {
           var preview = item.querySelector('[data-role="preview"]');
-          preview.src = json.url;
+          // Pakai object URL lokal (bukan json.url) supaya preview langsung
+          // muncul instan tanpa tergantung propagasi CDN setelah upload.
+          var objectUrl = URL.createObjectURL(file);
+          preview.onerror = function () {
+            preview.style.display = "none";
+          };
+          preview.onload = function () {
+            URL.revokeObjectURL(objectUrl);
+          };
+          preview.src = objectUrl;
           preview.style.display = "block";
         }
       } else {
